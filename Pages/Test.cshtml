@@ -1,0 +1,57 @@
+﻿@page
+@model WebApplication1.Pages.TestModel
+@{
+}
+
+@section Scripts {
+    <script>
+        $('form').submit(function (e) {
+            e.preventDefault();
+
+            var inputText = $('#inputText').val();
+            var isValid = true;
+            var filteredWords = ["samadhan", "deepak", "amit"]; // Add your own predefined list of words here
+
+            for (var i = 0; i < filteredWords.length; i++) {
+                if (inputText.includes(filteredWords[i])) {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            var urlRegex = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+            if (!urlRegex.test(inputText)) {
+                isValid = false;
+            }
+
+            //var mobileRegex = /^[1-9]{1}[0-9]{9}$/;
+            //if (!mobileRegex.test(inputText)) {
+            //    isValid = false;
+            //}
+
+           
+            Regex regex = new Regex("^(01|0)[0-9]{9}$");
+            
+            if (!regex.IsMatch(inputText)) {
+                isValid = false;
+            }
+
+            if (isValid) {
+                $('form')[0].submit();
+            } else {
+                alert("Invalid input.");
+            }
+        });
+    </script>
+}
+
+
+<h1>Demo Application</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="inputText">Input Text:</label>
+        <input type="text" class="form-control" id="inputText" name="inputText">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
